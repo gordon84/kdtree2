@@ -1,0 +1,15 @@
+# Fortran compiler output
+*.mod
+*.smod
+*.o
+
+# Compiled libraries
+*.a
+*.so
+*.dylib
+*.dll
+
+# Executables
+*.exe
+a.out
+test_kdtree2

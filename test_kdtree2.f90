@@ -1,5 +1,6 @@
 program test_kdtree2
-    use mod_kdtree2, only : rt, typeKdtree2, typeKdtree2Result, typeTreeNode, &
+    use mod_types, only : rt
+    use mod_kdtree2, only : typeKdtree2, typeKdtree2Result, typeTreeNode, &
         kdtree2_create, kdtree2_destroy, kdtree2_n_nearest, &
         kdtree2_n_nearest_around_point, kdtree2_r_count, kdtree2_r_nearest
 

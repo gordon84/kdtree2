@@ -18,7 +18,8 @@
 !
 ! Quick example
 ! -------------
-!   use mod_kdtree2, only : rt, typeKdtree2, typeKdtree2Result, &
+!   use mod_types, only : rt
+!   use mod_kdtree2, only : typeKdtree2, typeKdtree2Result, &
 !       kdtree2_create, kdtree2_n_nearest, kdtree2_destroy
 !   real(rt), target :: data(D,N)
 !   real(rt), target :: query(D)
@@ -36,7 +37,7 @@
 ! Compile and run
 ! ---------------
 !   gfortran -std=f2008 -Wall -Wextra -fcheck=all \
-!       mod_kdtree2.f90 test_kdtree2.f90 -o test_kdtree2
+!       mod_types.f90 mod_kdtree2.f90 test_kdtree2.f90 -o test_kdtree2
 !   ./test_kdtree2
 !
 ! License and additional provision
@@ -146,18 +147,8 @@
 ! Licensed under the Academic Free License version 1.1 reproduced above,
 ! together with the additional attribution and citation provision.
 !
-module mod_kdtree2_precision
-    use iso_fortran_env, only : real64
-
-    implicit none
-    private
-
-    integer, parameter, public :: rt = real64
-
-end module mod_kdtree2_precision
-
 module mod_kdtree2_priority_queue
-  use mod_kdtree2_precision
+  use mod_types, only : rt
   !
   ! maintain a priority queue (PQ) of data, pairs of 'priority/payload', 
   ! implemented with a binary heap.  This is the type, and the 'dis' field
@@ -563,7 +554,7 @@ end module mod_kdtree2_priority_queue
 
 
 module mod_kdtree2
-  use mod_kdtree2_precision
+  use mod_types, only : rt
   use mod_kdtree2_priority_queue
   ! K-D tree routines in Fortran 90 by Matt Kennel.
   ! Original program was written in Sather by Steve Omohundro and
@@ -603,7 +594,7 @@ module mod_kdtree2
   !----------------------------------------------------------------
 
 
-  integer, parameter :: BUCKET_SIZE = 12
+  integer, parameter :: BUCKET_SIZE = 2**3 - 1 ! Test condition u - l <= BUCKET_SIZE means the actual size is BUCKET_SIZE+1
   ! The maximum number of points to keep in a terminal node.
 
   type :: typeInterval
